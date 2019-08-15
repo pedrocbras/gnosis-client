@@ -8,6 +8,7 @@ require 'faker'
 	Article.create!(
 		title: title,
 		body: body,
-		author: author)
+		author: author,
+		created_at: '')
 		puts "created article #{n+1}"
 end

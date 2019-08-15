@@ -21,12 +21,4 @@ RSpec.describe Article, type: :model do
       expect(FactoryBot.create(:article)).to be_valid
     end
   end
-
-  describe 'GET api/v0/articles' do
-    it 'returns a list of articles' do
-      get '/api/v0/articles'
-      expect(Article.count).to eq 6
-    end
-  end
-
 end

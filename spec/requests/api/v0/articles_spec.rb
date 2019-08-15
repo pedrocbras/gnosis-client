@@ -1,7 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe Api::V0::ArticlesController, type: :request do
+
+
   describe 'GET /v0/articles' do
+    before do
+      5.times { FactoryBot.create(:article) }
+      
+      binding.pry
+      
+    end
+
     it 'should return Articles' do
       get '/api/v0/articles'
 

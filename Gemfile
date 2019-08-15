@@ -9,6 +9,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'rack-cors', require: 'rack/cors'
 gem 'faker'
+gem 'active_model_serializers'
+
 
 group :development, :test do
  gem 'pry-rails'

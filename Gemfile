@@ -13,6 +13,7 @@ gem 'active_model_serializers'
 
 
 group :development, :test do
+ gem 'coveralls', require: false
  gem 'pry-rails'
  gem 'pry-byebug'
  gem 'rspec-rails'

@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :university do
-    name { "MyString" }
-    location { "MyString" }
-    email { "MyString" }
-    password { "MyString" }
-    password_confirmation { "MyString" }
+    name { "Harvard University" }
+    location { "Cambridge, MA" }
+    email { "harvard@harvard.edu" }
+    password { "password" }
+    password_confirmation { "password" }
   end
 end

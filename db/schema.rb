@@ -23,11 +23,7 @@ ActiveRecord::Schema.define(version: 2019_08_15_121709) do
     t.datetime "updated_at", null: false
   end
 
-<<<<<<< HEAD
-  create_table "unis", force: :cascade do |t|
-=======
   create_table "universities", force: :cascade do |t|
->>>>>>> 770f320e118e342a7810c614f2a943b63eeb074f
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -46,17 +42,10 @@ ActiveRecord::Schema.define(version: 2019_08_15_121709) do
     t.text "tokens"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-<<<<<<< HEAD
-    t.index ["confirmation_token"], name: "index_unis_on_confirmation_token", unique: true
-    t.index ["email"], name: "index_unis_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_unis_on_reset_password_token", unique: true
-    t.index ["uid", "provider"], name: "index_unis_on_uid_and_provider", unique: true
-=======
     t.index ["confirmation_token"], name: "index_universities_on_confirmation_token", unique: true
     t.index ["email"], name: "index_universities_on_email", unique: true
     t.index ["reset_password_token"], name: "index_universities_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_universities_on_uid_and_provider", unique: true
->>>>>>> 770f320e118e342a7810c614f2a943b63eeb074f
   end
 
 end

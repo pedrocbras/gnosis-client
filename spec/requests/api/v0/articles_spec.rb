@@ -11,9 +11,6 @@ RSpec.describe Api::V0::ArticlesController, type: :request do
 
 
     it 'should return collection of articles' do    
-      
-      binding.pry
-      
       expect(json_response.count). to eq 5
     end
 

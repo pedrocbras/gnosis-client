@@ -8,13 +8,16 @@ gem 'puma', '~> 3.11'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'rack-cors', require: 'rack/cors'
+gem 'faker'
+gem 'active_model_serializers'
+
 
 group :development, :test do
  gem 'coveralls', require: false
  gem 'pry-rails'
  gem 'pry-byebug'
  gem 'rspec-rails'
- gem 'shoulda-matchers'
+ gem 'shoulda-matchers', '~> 4.1', '>= 4.1.2'
  gem 'factory_bot_rails' 
 end
 

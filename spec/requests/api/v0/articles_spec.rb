@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Api::V0::ArticlesController, type: :request do
   let(:headers) { {HTTP_ACCEPT: "application/json"} }
 

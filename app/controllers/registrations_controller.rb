@@ -1,14 +1,12 @@
-class RegistrationsController < ApplicationController
-  def render_create_success
+class RegistrationsController < ::DeviseTokenAuth::RegistrationsController
+  def render_create_success    
     5.times { RegistrationKey.create(user: @resource) }
-    @resouce.reload
+    @resource.reload
 
-    binding.pry 
-    
     render json: {
       status: 'success',
       data: {
-        registration_key: @resouce.registration_keys,
+        registration_keys: @resource.registration_keys,
         user: resource_data
       }
     }

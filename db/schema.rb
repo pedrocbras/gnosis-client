@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2019_08_16_104614) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["combination"], name: "index_registration_keys_on_combination", unique: true
     t.index ["user_id"], name: "index_registration_keys_on_user_id"
   end
 

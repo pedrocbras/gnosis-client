@@ -8,9 +8,11 @@ RSpec.describe 'User Registration', type: :request do
                                      password_confirmation: 'password'
                                   }, headers: headers
 
+
+      
       expect(response_json['status']).to eq 'success'
       expect(response.status).to eq 200
-      expect(response_json['data']['registation_keys'].count).to eq 5
+      expect(response_json['data']['registration_keys'].count).to eq 5
     end
   end
 

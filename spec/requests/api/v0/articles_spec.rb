@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Api::V0::ArticlesController, type: :request do
   let(:headers) { {HTTP_ACCEPT: "application/json"} }
 
@@ -11,7 +9,7 @@ RSpec.describe Api::V0::ArticlesController, type: :request do
 
 
     it 'should return collection of articles' do    
-      expect(json_response.count). to eq 5
+      expect(response_json.count). to eq 5
     end
 
     it 'returns 200 response' do

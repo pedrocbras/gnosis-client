@@ -1,6 +1,5 @@
 FactoryBot.define do
-  factory :university do
-    #name { "Harvard University" }
+  factory :user do
     email { "harvard@harvard.edu" }
     password { "password" }
     password_confirmation { "password" }

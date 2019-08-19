@@ -69,7 +69,6 @@ RSpec.describe User, type: :model do
         expect(user.research_group?).to be true
       end
     end
-    
 
     describe 'Default User role is Reader' do
       let(:user){create :user, email: 'justsignedup@whatever.com'}

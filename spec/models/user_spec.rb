@@ -58,7 +58,7 @@ RSpec.describe User, type: :model do
       let(:university){create :user, email: 'oxford@oxford.edu', role: :university}
     
       it '#University? responds true if user role is university' do
-        expecyt(university.university?).to be true
+        expect(university.university?).to be true
       end
     end
   end

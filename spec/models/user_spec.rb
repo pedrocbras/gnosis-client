@@ -54,20 +54,24 @@ RSpec.describe User, type: :model do
       end
     end
 
-    describe 'User roles' do
+    describe 'User can have a University Role' do
       let(:user){create :user, email: 'oxford@oxford.edu', role: :university}
-      let(:user){create :user, email: 'cancer_reseach@oxford.edu', role: :reseach_group}
-    
+     
       it '#University? responds true if user role is university' do
-        expect(university.university?).to be true
+        expect(user.university?).to be true
       end
-
-      it '#Resech_group? responds true if user role is reseach_group' do
-      expect(reseach_group.reseach_group?).to be true
-    end
     end
 
-    describe 'default User role' do
+    describe 'User can have a Research Group Role' do
+      let(:user){create :user, email: 'cancer_research@oxford.edu', role: :research_group}
+
+      it '#Research_group? responds true if user role is reseach_group' do
+        expect(user.research_group?).to be true
+      end
+    end
+    
+
+    describe 'Default User role is Reader' do
       let(:user){create :user, email: 'justsignedup@whatever.com'}
 
       it '#Reader? responds true if newly created user has a default role of reader' do

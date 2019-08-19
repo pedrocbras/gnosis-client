@@ -53,5 +53,13 @@ RSpec.describe User, type: :model do
         it { is_expected.to allow_value(email).for(:email) }
       end
     end
+
+    describe 'User roles' do
+      let(:university){create :user, email: 'oxford@oxford.edu', role: :university}
+    
+      it '#University? responds true if user role is university' do
+        expecyt(university.university?).to be true
+      end
+    end
   end
 end

@@ -61,5 +61,12 @@ RSpec.describe User, type: :model do
         expect(university.university?).to be true
       end
     end
+
+    describe 'default User role' do
+      let(:reader){create :user, email: 'reader@reader.com', role: :reader}
+
+      it '#Reader? responds true if user default role is reader'
+        expect(set_default_role.reader?).to be true
+    end
   end
 end

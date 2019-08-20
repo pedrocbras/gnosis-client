@@ -1,9 +1,10 @@
 RSpec.describe Api::V0::ArticlesController, type: :request do
-  let(:rg_user) { FactoryBot.create(:user, role: :research_group) }
-  let(:credentials) { rg_user.create_new_auth_token }
-  let(:headers) { {HTTP_ACCEPT: "application/json"}.merge!(credentials) }
 
   describe 'research group POST article' do 
+    let(:rg_user) { FactoryBot.create(:user, role: :research_group) }
+    let(:credentials) { rg_user.create_new_auth_token }
+    let(:headers) { {HTTP_ACCEPT: "application/json"}.merge!(credentials) }
+    
     before do
       post '/api/v0/articles' , params: {
         article: {

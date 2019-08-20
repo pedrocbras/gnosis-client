@@ -9,7 +9,11 @@ class Api::V0::ArticlesController < ApplicationController
   def create
     article = current_api_v0_user.articles.create(article_params)
 
-    binding.pry
+    if article.persisted?
+      render json: { message: 'all good' } 
+    else
+      render json: { message: 'not good' } 
+    end
   end
 
   private

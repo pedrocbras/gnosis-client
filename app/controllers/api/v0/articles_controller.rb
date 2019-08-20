@@ -7,13 +7,11 @@ class Api::V0::ArticlesController < ApplicationController
   end
 
   def create
-    article = current_api_v0_user.articles.create(article_params)
-
-    if article.persisted?
+    if current_api_v0_user.role === 'research_group'
+      article = current_api_v0_user.articles.create!(article_params)
       render json: { message: 'all good' } 
-    else
-      render json: { message: 'not good' } 
     end
+
   end
 
   private

@@ -9,14 +9,12 @@ RSpec.describe Api::V0::ArticlesController, type: :request do
         article: {
           title: 'Test article',
           body: 'Lorum lorum lorum',
-          author: rg_user
+          author: rg_user.name
         }
       }, headers: headers
     end
 
     it 'research group user creates new article' do  
-      binding.pry
-
       expect(response.status).to eq 200
     end
 

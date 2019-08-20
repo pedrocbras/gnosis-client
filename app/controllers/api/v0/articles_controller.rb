@@ -10,6 +10,8 @@ class Api::V0::ArticlesController < ApplicationController
     if current_api_v0_user.role === 'research_group'
       article = current_api_v0_user.articles.create!(article_params)
       render json: { message: 'all good' } 
+    else
+      render json: {}, status: 422
     end
 
   end

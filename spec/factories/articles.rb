@@ -3,5 +3,6 @@ FactoryBot.define do
     title { "MyString" }
     body { "MyText" }
     author { "MyString" }
+    association :user
   end
 end

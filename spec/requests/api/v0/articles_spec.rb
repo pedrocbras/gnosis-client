@@ -3,13 +3,13 @@ RSpec.describe Api::V0::ArticlesController, type: :request do
 
   describe 'GET /v0/articles' do
     before do
-      5.times { FactoryBot.create(:article) }
+      1.times { FactoryBot.create(:article) }
       get '/api/v0/articles', headers: headers
     end
 
 
     it 'should return collection of articles' do    
-      expect(response_json.count). to eq 5
+      expect(response_json.count). to eq 1
     end
 
     it 'returns 200 response' do

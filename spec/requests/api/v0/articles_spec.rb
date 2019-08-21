@@ -4,7 +4,7 @@ RSpec.describe Api::V0::ArticlesController, type: :request do
 
   describe 'GET /v0/articles' do
     before do
-      5.times { FactoryBot.create(:article, user: research_group) }
+      5.times { FactoryBot.create(:article, author: research_group) }
       get '/api/v0/articles', headers: headers
     end
 

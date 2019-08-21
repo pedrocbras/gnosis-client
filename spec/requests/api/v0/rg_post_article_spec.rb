@@ -10,7 +10,6 @@ RSpec.describe Api::V0::ArticlesController, type: :request do
         article: {
           title: 'Test article',
           body: 'Lorum lorum lorum',
-          author: research_group.name
         }
       }, headers: headers
     end
@@ -31,7 +30,6 @@ RSpec.describe Api::V0::ArticlesController, type: :request do
         article: {
           title: 'Test article',
           body: 'Lorum lorum lorum',
-          author: university.name
         }
       }, headers: headers
     end

@@ -10,8 +10,7 @@ user = FactoryBot.create(:user, role: :research_group)
 	Article.create!(
 		title: title,
 		body: body,
-    author: author,
-    user: user,
+    author: user,
 		created_at: '')
 		puts "created article #{n+1}"
 end

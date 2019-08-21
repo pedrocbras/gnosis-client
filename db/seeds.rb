@@ -1,14 +1,12 @@
 require 'faker'
 
-6.times do |n|
-	title = Faker::Lorem.sentences(number: 1)
-	body = Faker::Lorem.paragraph
-	author = Faker::Name.name
+user = FactoryBot.create(:user, role: :research_group)
 
-	Article.create!(
-		title: title,
-		body: body,
-		author: author,
-		created_at: '')
-		puts "created article #{n+1}"
+6.times do |n|
+  title = Faker::Lorem.sentences(number: 1)
+  body = Faker::Lorem.paragraph
+  author = Faker::Name.name
+
+  Article.create!(title: title, body: body, author: user, created_at: '')
+  puts "created article #{n + 1}"
 end

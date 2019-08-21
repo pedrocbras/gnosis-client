@@ -32,6 +32,16 @@ ActiveRecord::Schema.define(version: 2019_08_21_095125) do
     t.index ["user_id"], name: "index_registration_keys_on_user_id"
   end
 
+  create_table "universities", force: :cascade do |t|
+    t.string "name"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "resource_type", "resource_id"], name: "index_universities_on_name_and_resource_type_and_resource_id"
+    t.index ["resource_type", "resource_id"], name: "index_universities_on_resource_type_and_resource_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
@@ -61,6 +71,14 @@ ActiveRecord::Schema.define(version: 2019_08_21_095125) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
+  end
+
+  create_table "users_universities", id: false, force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "university_id"
+    t.index ["university_id"], name: "index_users_universities_on_university_id"
+    t.index ["user_id", "university_id"], name: "index_users_universities_on_user_id_and_university_id"
+    t.index ["user_id"], name: "index_users_universities_on_user_id"
   end
 
   add_foreign_key "registration_keys", "users"

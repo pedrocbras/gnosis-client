@@ -1,8 +1,8 @@
 RSpec.describe Api::V0::ArticlesController, type: :request do
 
-  describe 'research group POST article' do 
-    let(:rg_user) { FactoryBot.create(:user, role: :research_group) }
-    let(:credentials) { rg_user.create_new_auth_token }
+  describe 'Research group can post article' do 
+    let(:research_group) { FactoryBot.create(:user, role: :research_group) }
+    let(:credentials) { research_group.create_new_auth_token }
     let(:headers) { {HTTP_ACCEPT: "application/json"}.merge!(credentials) }
     
     before do
@@ -10,20 +10,20 @@ RSpec.describe Api::V0::ArticlesController, type: :request do
         article: {
           title: 'Test article',
           body: 'Lorum lorum lorum',
-          author: rg_user.name
+          author: research_group.name
         }
       }, headers: headers
     end
 
-    it 'research group user creates new article' do  
+    it 'returns 200 response' do  
       expect(response.status).to eq 200
     end
 
   end
 
-  describe 'university group POST article' do 
-    let(:uni_user) { FactoryBot.create(:user, role: :university) }
-    let(:credentials) { uni_user.create_new_auth_token }
+  describe 'University cannot post article' do 
+    let(:university) { FactoryBot.create(:user, role: :university) }
+    let(:credentials) { university.create_new_auth_token }
     let(:headers) { {HTTP_ACCEPT: "application/json"}.merge!(credentials) }
     
     before do
@@ -31,12 +31,12 @@ RSpec.describe Api::V0::ArticlesController, type: :request do
         article: {
           title: 'Test article',
           body: 'Lorum lorum lorum',
-          author: uni_user.name
+          author: university.name
         }
       }, headers: headers
     end
 
-    it 'research group user creates new article' do  
+    it 'returns 422 response' do  
       expect(response.status).to eq 422
     end
 

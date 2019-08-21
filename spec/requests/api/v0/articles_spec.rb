@@ -1,10 +1,10 @@
 RSpec.describe Api::V0::ArticlesController, type: :request do
   let(:headers) { {HTTP_ACCEPT: "application/json"} }
-  let(:rg_user) { FactoryBot.create(:user, role: :research_group) }
+  let(:research_group) { FactoryBot.create(:user, role: :research_group) }
 
   describe 'GET /v0/articles' do
     before do
-      5.times { FactoryBot.create(:article, user: rg_user) }
+      5.times { FactoryBot.create(:article, user: research_group) }
       get '/api/v0/articles', headers: headers
     end
 

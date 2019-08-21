@@ -15,7 +15,7 @@ RSpec.describe Api::V0::ArticlesController, type: :request do
     it 'returns 200 response' do
       expect(response.status).to eq 200
     end
-
+    
   end
   
 end

@@ -1,5 +1,5 @@
 class RegistrationsController < ::DeviseTokenAuth::RegistrationsController
-  def render_create_success    
+  def render_create_success
     5.times { RegistrationKey.create(user: @resource) }
     @resource.reload
 

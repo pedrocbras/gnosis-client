@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   extend Devise::Models
   after_initialize :set_default_role, if: :new_record?
 
-  enum role: [:university, :research_group, :reader]
+  enum role: { university: 0, research_group: 1, reader: 2 }
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable

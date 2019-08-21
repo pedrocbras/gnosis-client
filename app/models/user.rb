@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :registration_keys
   has_many :articles
 
-  private 
+  private
 
   def set_default_role
     self.role ||= :reader

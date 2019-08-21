@@ -20,11 +20,11 @@ RSpec.describe 'User Registration', type: :request do
     end
 
     it 'JSON body response contains a role' do
-      expect(response_json['data']['user']['role']).to eq 'research_group'
+      expect(response_json['data']['role']).to eq 'research_group'
     end
 
     it 'JSON body response contains a name ' do
-      expect(response_json['data']['user']['name']).to eq 'Fat Bob'
+      expect(response_json['data']['name']).to eq 'Fat Bob'
     end
   end
 

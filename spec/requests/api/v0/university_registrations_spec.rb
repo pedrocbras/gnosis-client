@@ -1,8 +1,8 @@
 RSpec.describe 'User Registration', type: :request do
   let(:header) { { HTTP_ACCEPT: 'application/json' } }
 
-  describe 'with valid credentials' do
-    before 'posting data to URL' do
+  describe 'with valid credentials for University role' do
+    before 'post new University info' do
       post '/api/v0/auth', params: { email: 'example@craftacademy.se',
                                      name: 'Fat Bob',
                                      role: 'university',
@@ -20,12 +20,24 @@ RSpec.describe 'User Registration', type: :request do
     end
 
     it 'JSON body response contains a role' do
-      expect(response_json['data']['user']['role']).to eq 'research_group'
+      expect(response_json['data']['user']['role']).to eq 'university'
+    end
+  end
+
+  describe 'with valid credentials for Research Group role' do
+    before 'post new Research Group info' do
+      post '/api/v0/auth', params: { email: 'example@craftacademy.se',
+                                    name: 'Fat Bob',
+                                    role: 'research_group',
+                                    password: 'password',
+                                    password_confirmation: 'password' },
+                                    headers: headers
     end
 
-    it 'JSON body response contains a name ' do
-      expect(response_json['data']['user']['name']).to eq 'Fat Bob'
+    it 'returns zero registration keys' do
+      expect(response_json['data']['registration_keys'].count).to eq 0
     end
+
   end
 
   describe 'returns an error message when user submits' do

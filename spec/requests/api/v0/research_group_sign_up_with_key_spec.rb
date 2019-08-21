@@ -1,5 +1,6 @@
 RSpec.describe 'User Registration', type: :request do
   let(:header) { { HTTP_ACCEPT: 'application/json' } }
+  let(:registration_key) { 'o7A8pJcuvzhv7fih9Paak3nt' }
 
   describe 'User with Research Group role signs up with Registration Key' do
     before 'post new User with Research Group role info' do
@@ -8,7 +9,7 @@ RSpec.describe 'User Registration', type: :request do
                                      role: 'research_group',
                                      password: 'password',
                                      password_confirmation: 'password',
-                                     registration_key: 'registration_key' },
+                                     registration_key: registration_key },
                                      headers: headers
     end
 
@@ -22,8 +23,7 @@ RSpec.describe 'User Registration', type: :request do
     end
 
     it 'verifies that created user have a Registration key' do
-      registration_key = User.last.registration_key
-      expect(registration_key).to eq '8288912'
+      expect(response_json['data']['user']['registration_key']).to eq registration_key
     end
   
   end

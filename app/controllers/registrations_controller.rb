@@ -5,8 +5,7 @@ class RegistrationsController < ::DeviseTokenAuth::RegistrationsController
 
     render json: {
       status: 'success',
-      data: resource_data,
-      registration_keys: @resource.registration_keys
+      data: resource_data.merge(registration_keys: @resource.registration_keys)
     }
   end
 end

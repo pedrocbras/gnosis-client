@@ -1,4 +1,4 @@
-RSpec.describe 'User Registration', type: :request do
+RSpec.describe 'University Registration', type: :request do
   let(:header) { { HTTP_ACCEPT: 'application/json' } }
 
   describe 'with valid credentials' do
@@ -20,7 +20,7 @@ RSpec.describe 'User Registration', type: :request do
     end
 
     it 'JSON body response contains a role' do
-      expect(response_json['data']['user']['role']).to eq 'research_group'
+      expect(response_json['data']['user']['role']).to eq 'university'
     end
 
     it 'JSON body response contains a name ' do

@@ -37,7 +37,7 @@ RSpec.describe 'User Registration', type: :request do
     end
 
     it 'non-matching password confirmation' do
-      expect(response_json['errors']['password_confirmation']).to eq ["doesn't match password"]
+      expect(response_json['errors']['password_confirmation']).to eq ["doesn't match Password"]
     end
 
     it 'an invalid email address' do

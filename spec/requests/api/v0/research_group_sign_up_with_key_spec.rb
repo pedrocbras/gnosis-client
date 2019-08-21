@@ -20,6 +20,11 @@ RSpec.describe 'User Registration', type: :request do
       name = User.last.name
       expect(name).to eq 'Research Group Alpha'
     end
+
+    it 'verifies that created user have a Registration key' do
+      registration_key = User.last.registration_key
+      expect(registration_key).to eq '8288912'
+    end
   
   end
 

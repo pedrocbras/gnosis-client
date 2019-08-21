@@ -13,7 +13,12 @@ RSpec.describe 'User Registration', type: :request do
     end
 
     it 'returns a 200 response if post request was successful' do
-      expect(response.status). to eq 200
+      expect(response.status).to eq 200
+    end
+
+    it 'verifies that User with Research Group role is created' do
+      name = User.last.name
+      expect(name).to eq 'Research Group Alpha'
     end
   
   end

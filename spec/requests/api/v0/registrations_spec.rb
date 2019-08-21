@@ -12,6 +12,18 @@ RSpec.describe 'User Registration', type: :request do
       expect(response.status).to eq 200
       expect(response_json['data']['registration_keys'].count).to eq 5
     end
+    
+    it 'JSON body response contains a name and a role' do
+      post '/api/v0/auth', params: { email: 'example@craftacademy.se',
+                                      name: 'Dr. Rockso',
+                                      password: 'password',
+                                      password_confirmation: 'password',
+                                      role: 'research_group'
+                                  }, headers: headers
+      
+      expect(response_json['data']['user']['role']).to eq "research_group"
+      expect(response_json['data']['user']['name']).to eq "Dr. Rockso"
+    end
   end
 
   context 'returns an error message when user submits' do

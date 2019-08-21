@@ -12,6 +12,8 @@ gem 'faker'
 gem 'active_model_serializers'
 gem 'devise_token_auth'
 gem 'stripe-rails', '~> 1.8', '>= 1.8.1'
+gem 'prettier'
+
 
 
 group :development, :test do

@@ -5,7 +5,7 @@ RSpec.describe 'User Registration', type: :request do
     before 'posting data to URL' do
       post '/api/v0/auth', params: { email: 'example@craftacademy.se',
                                      name: 'Fat Bob',
-                                     role: 'research_group',
+                                     role: 'university',
                                      password: 'password',
                                      password_confirmation: 'password' },
                                      headers: headers

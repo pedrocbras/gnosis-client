@@ -1,4 +1,4 @@
 class Article < ApplicationRecord
-  validates :title, :body, :author, presence: true
-  belongs_to :user
+  validates :title, :body, presence: true
+  belongs_to :author, class_name: 'User'
 end

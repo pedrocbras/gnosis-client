@@ -9,7 +9,7 @@ RSpec.describe RegistrationKey, type: :model do
 
   describe 'Factory' do
     it 'should have valid Factory' do
-      expect(FactoryBot.create(:registration_key)).to be_valid
+      expect(create(:registration_key)).to be_valid
     end
   end
 end

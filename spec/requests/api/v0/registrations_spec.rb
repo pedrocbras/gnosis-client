@@ -1,72 +1,60 @@
 RSpec.describe 'User Registration', type: :request do
   let(:header) { { HTTP_ACCEPT: 'application/json' } }
 
-  context 'with valid credentials' do
-    it 'returns a user info and 5 registration keys' do
+  describe 'with valid credentials' do
+    before 'posting data to URL' do
       post '/api/v0/auth', params: { email: 'example@craftacademy.se',
-                                      password: 'password',
-                                      password_confirmation: 'password'
-                                  }, headers: headers
+                                     name: 'Fat Bob',
+                                     role: 'research_group',
+                                     password: 'password',
+                                     password_confirmation: 'password' },
+                                     headers: headers
+    end
 
-      expect(response_json['status']).to eq 'success'
+    it 'returns a 200 response' do
       expect(response.status).to eq 200
+    end
+
+    it 'returns 5 registration keys' do
       expect(response_json['data']['registration_keys'].count).to eq 5
     end
-    
+
     it 'JSON body response contains a role' do
-      post '/api/v0/auth', params: { email: 'example@craftacademy.se',
-                                      password: 'password',
-                                      password_confirmation: 'password',
-                                      role: 'research_group'
-                                  }, headers: headers
-      
-      expect(response_json['data']['user']['role']).to eq "research_group"
+      expect(response_json['data']['user']['role']).to eq 'research_group'
     end
 
     it 'JSON body response contains a name ' do
-      post '/api/v0/auth', params: { email: 'example@craftacademy.se',
-                                      name: 'Dr. Rockso',
-                                      password: 'password',
-                                      password_confirmation: 'password'
-                                  }, headers: headers
-      
-      expect(response_json['data']['user']['name']).to eq "Dr. Rockso"
+      expect(response_json['data']['user']['name']).to eq 'Fat Bob'
     end
   end
 
-  context 'returns an error message when user submits' do
-    it 'non-matching password confirmation' do
-      post '/api/v0/auth', params: { email: 'example@craftacademy.se',
-                                      password: 'password',
-                                      password_confirmation: 'wrong_password'
-                                  }, headers: headers
+  describe 'returns an error message when user submits' do
+    before 'posting erroneous data to URL' do
+      post '/api/v0/auth', params: { email: 'example@craftacademy',
+                                     password: 'password',
+                                     password_confirmation: 'wrong_password' },
+                                     headers: headers
+    end
 
-      expect(response_json['errors']['password_confirmation']).to eq ["doesn't match Password"]
-      expect(response.status).to eq 422
+    it 'non-matching password confirmation' do
+      expect(response_json['errors']['password_confirmation']).to eq ["doesn't match password"]
     end
 
     it 'an invalid email address' do
-      post '/api/v0/auth', params: { email: 'example@craft',
-                                      password: 'password',
-                                      password_confirmation: 'password'
-                                  }, headers: headers
-
       expect(response_json['errors']['email']).to eq ['is not an email']
-      expect(response.status).to eq 422
     end
+  end
 
-    it 'an already registered email' do
-      FactoryBot.create(:user, email: 'example@craftacademy.se',
-                                password: 'password',
-                                password_confirmation: 'password')
+  it 'an already registered email' do
+    FactoryBot.create(:user, email: 'example@craftacademy.se',
+                             password: 'password',
+                             password_confirmation: 'password')
 
-      post '/api/v0/auth', params: { email: 'example@craftacademy.se',
-                                      password: 'password',
-                                      password_confirmation: 'password'
-                                  }, headers: headers
+    post '/api/v0/auth', params: { email: 'example@craftacademy.se',
+                                   password: 'password',
+                                   password_confirmation: 'password' }, headers:
+                                   headers
 
-      expect(response_json['errors']['email']).to eq ['has already been taken']
-      expect(response.status).to eq 422
-    end
+    expect(response_json['errors']['email']).to eq ['has already been taken']
   end
 end

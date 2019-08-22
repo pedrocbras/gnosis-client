@@ -21,11 +21,11 @@ RSpec.describe 'Registration', type: :request do
     end
 
     it 'verifies that User with Research Group role is created' do
-      expect(response_json[:name]).to eq 'Research Group Alpha'
+      expect(response_json["data"]["name"]).to eq 'Research Group Alpha'
     end
 
     it 'verifies that created user have a Registration key' do
-      expect(response_json[:university_id]).to eq reg_key.user_id
+      expect(response_json["data"]["university_id"]).to eq reg_key.user_id
     end
 
   end
@@ -46,7 +46,7 @@ RSpec.describe 'Registration', type: :request do
     end
 
     it 'returns error message' do
-      expect(response_json[:error]).to eq 'Need a registration key'
+      expect(response_json["errors"]).to eq 'Need a registration key'
     end
 
   end
@@ -67,7 +67,7 @@ RSpec.describe 'Registration', type: :request do
     end
 
     it 'returns error message' do
-      expect(response_json[:error]).to eq 'Invalid registration key'
+      expect(response_json["errors"]).to eq 'Invalid registration key'
     end
 
   end

@@ -78,7 +78,16 @@ class RegistrationsController < ::DeviseTokenAuth::RegistrationsController
     
     render json: {
       status: 'success',
-      data: resource_data.merge(registration_keys: @resource.registration_keys)
+      registration_keys: @resource.registration_keys,
+      data: resource_data
     }
+  end
+
+  def render_json_error_response(message)
+    render json: {
+      status: 'error',
+      data:   resource_data,
+      errors: message
+    }, status: 422
   end
 end

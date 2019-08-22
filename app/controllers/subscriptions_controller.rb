@@ -13,5 +13,12 @@ class Api::V0::SubscriptionsController < ApplicationController
         description: 'Gnosis Yearly Subscription',
         currency: 'SEK'
       )
+
+    if charge.paid?
+      current_user.update_attribute(:subscriber, true)
+      # Some kind of success message here
+    else
+      # Some kind of error message here
+    end
   end
 end

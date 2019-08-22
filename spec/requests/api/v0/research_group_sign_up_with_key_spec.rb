@@ -1,16 +1,16 @@
-RSpec.describe 'User Registration', type: :request do
+RSpec.describe 'Registration', type: :request do
   let(:header) { { HTTP_ACCEPT: 'application/json' } }
   let(:registration_key) { 'o7A8pJcuvzhv7fih9Paak3nt' }
 
-  describe 'User with Research Group role signs up with Registration Key' do
-    before 'post new User with Research Group role info' do
+  describe 'of User with Research Group role with valid Registration Key' do
+    before 'post new User info' do
       post '/api/v0/auth', params: { email: 'example@craftacademy.se',
-                                     name: 'Research Group Alpha',
-                                     role: 'research_group',
-                                     password: 'password',
-                                     password_confirmation: 'password',
-                                     registration_key: registration_key },
-                                     headers: headers
+                                    name: 'Research Group Alpha',
+                                    role: 'research_group',
+                                    password: 'password',
+                                    password_confirmation: 'password',
+                                    registration_key: registration_key },
+                                    headers: headers
     end
 
     it 'returns a 200 response if post request was successful' do
@@ -23,9 +23,44 @@ RSpec.describe 'User Registration', type: :request do
     end
 
     it 'verifies that created user have a Registration key' do
-      expect(response_json['data']['user']['registration_key']).to eq registration_key
+      sign_up_registration_key = User.last.registration_key
+      expect(sign_up_registration_key).to eq registration_key
     end
-  
+
+  end
+
+  describe 'of User with Research Group role without Registration Key' do
+    before 'post new User info' do
+      post '/api/v0/auth', params: { email: 'maria@craftacademy.se',
+                                     name: 'Fat Jesus',
+                                     role: 'research_group',
+                                     password: 'password',
+                                     password_confirmation: 'password',
+                                     registration_key: nil },
+                                     headers: headers
+    end
+
+    it 'returns a 204 response, save successfully attempted but nothing saved' do
+      expect(response.status).to eq 204
+    end
+
+  end
+
+  describe 'of User with Research Group role without Registration Key' do
+    before 'post new User info' do
+      post '/api/v0/auth', params: { email: 'maria@craftacademy.se',
+                                     name: 'Fat Jesus',
+                                     role: 'research_group',
+                                     password: 'password',
+                                     password_confirmation: 'password',
+                                     registration_key: 'o7A8pJcuvzhv7fih9Paerror' },
+                                     headers: headers
+    end
+
+    it 'returns a 204 response, save successfully attempted but nothing saved' do
+      expect(response.status).to eq 204
+    end
+
   end
 
 end

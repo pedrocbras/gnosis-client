@@ -1,4 +1,4 @@
-RSpec.describe 'User Registration', type: :request do
+RSpec.describe 'University Registration', type: :request do
   let(:header) { { HTTP_ACCEPT: 'application/json' } }
 
   describe 'with valid credentials for University role' do

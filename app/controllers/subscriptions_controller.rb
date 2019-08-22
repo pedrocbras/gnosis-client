@@ -1,6 +1,6 @@
 require 'stripe'
 
-class Api::V0::ChargesController < ApplicationController
+class Api::V0::SubscriptionsController < ApplicationController
   def create
     Stripe.api_key = 'insert test key here'
 

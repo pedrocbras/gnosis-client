@@ -1,11 +1,14 @@
 class RegistrationsController < ::DeviseTokenAuth::RegistrationsController
   def render_create_success
     5.times { RegistrationKey.create(user: @resource) }
-    @resource.reload    
+    @resource.reload
 
     render json: {
-      status: 'success',
-      data: resource_data.merge(registration_keys: @resource.registration_keys)
-    }
+             status: 'success',
+             data:
+               resource_data.merge(
+                 registration_keys: @resource.registration_keys
+               )
+           }
   end
 end

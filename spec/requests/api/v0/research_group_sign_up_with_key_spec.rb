@@ -17,7 +17,6 @@ RSpec.describe 'Registration', type: :request do
 
     it 'returns a 200 response if post request was successful' do
       expect(response.status).to eq 200
-      binding.pry
     end
 
     it 'verifies that User with Research Group role is created' do
@@ -53,11 +52,15 @@ RSpec.describe 'Registration', type: :request do
       expect(response_json["errors"]).to eq 'Need a registration key'
     end
 
+    it 'checks for research group saved in db, but fails' do
+      expect(User.find_by(email: 'maria@craftacademy.se')).to eq nil
+    end
+
   end
 
   describe 'of User with Research Group role incorrect Registration Key' do
     before 'post new User info' do
-      post '/api/v0/auth', params: { email: 'maria@craftacademy.se',
+      post '/api/v0/auth', params: { email: 'sam@craftacademy.se',
                                      name: 'Fat Jesus',
                                      role: 'research_group',
                                      password: 'password',
@@ -72,6 +75,27 @@ RSpec.describe 'Registration', type: :request do
 
     it 'returns error message' do
       expect(response_json["errors"]).to eq 'Invalid registration key'
+    end
+
+    it 'checks for research group saved in db, but fails' do
+      expect(User.find_by(email: 'sam@craftacademy.se')).to eq nil
+    end
+
+  end
+
+  describe 'of User with University role trying to use Registration Key' do
+    before 'post new User info' do
+      post '/api/v0/auth', params: { email: 'tate@craftacademy.se',
+                                     name: 'Fat Jesus',
+                                     role: 'university',
+                                     password: 'password',
+                                     password_confirmation: 'password',
+                                     registration_key: reg_key.combination },
+                                     headers: headers
+    end
+
+    it '(hack) tries to associate new User with university role with the University thats created, but fails' do
+      expect(User.find_by(email: 'tate@craftacademy.se').university_id).to eq nil
     end
 
   end

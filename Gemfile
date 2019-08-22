@@ -10,6 +10,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'rack-cors', require: 'rack/cors'
 gem 'faker'
 gem 'active_model_serializers'
+gem 'devise_token_auth'
+gem 'prettier'
 
 
 group :development, :test do

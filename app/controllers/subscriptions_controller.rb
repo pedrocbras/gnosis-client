@@ -1,6 +1,6 @@
 class Api::V0::SubscriptionsController < ApplicationController
   def create
-    binding.pry
+   
     customer =
       Stripe::Customer.create(
         email: params[:stripeEmail], source: params[:stripeToken]

@@ -1,17 +1,19 @@
-RSpec.describe 'Subscription POST to /subscriptions', type: :request do
-  let(:stripe_helper) { StripeMock.create_test_helper }
-  let(:headers) { {HTTP_ACCEPT: "application/json"} }
-  let(:user) { create(:user, role: :university) }
+require 'stripe_mock'
+
+describe 'Subscription Payment' do
   before { StripeMock.start }
   after { StripeMock.stop }
+  let(:stripe_token) { StripeMock.create_test_helper.generate_card_token }
+  let(:user) { create(:user, role: :university) }
 
-    describe 'Subscription payment POST to /subscriptions' do
-      # This doesn't touch stripe's servers nor the internet!
-      # Specify :source in place of :card (with same value) to return customer with source data
-      customer = Stripe::Customer.create({
-        email: 'johnny@appleseed.com',
-        source: stripe_helper.generate_card_token
-      })
-      expect(customer.email).to eq('johnny@appleseed.com')
+  describe 'Subscription payment POST to /subscriptions' do
+    before do
+      post '/api/v0/subscriptions/create',
+           params: { stripe_token: stripe_token}
     end
+
+    it 'returns 200' do
+      expect(response.status).to eq 200
+    end
+  end
 end

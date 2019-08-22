@@ -8,7 +8,7 @@ class Api::V0::ArticlesController < ApplicationController
 
   def create
     if current_api_v0_user.research_group?
-      Article.create(article_params.merge(author: current_api_v0_user))
+      Article.create(article_params.(author: current_api_v0_user))
       render json: { message: 'Article successfully created.' } 
     else
       render json: { error: 'Current user has no permission to create article.' }, status: 422

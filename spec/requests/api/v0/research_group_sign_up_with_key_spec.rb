@@ -1,6 +1,5 @@
 RSpec.describe 'Registration', type: :request do
   let(:header) { { HTTP_ACCEPT: 'application/json' } }
-  let(:registration_key) { 'o7A8pJcuvzhv7fih9Paak3nt' }
   let(:university) { FactoryBot.create(:user, role: 'university') }
   let(:reg_key) { university.registration_keys.create }
 
@@ -24,7 +23,7 @@ RSpec.describe 'Registration', type: :request do
       expect(response_json["data"]["name"]).to eq 'Research Group Alpha'
     end
 
-    it 'verifies that created user have a Registration key' do
+    it 'verifies that the registration key used for research_group sign up is associated with a university' do
       expect(response_json["data"]["university_id"]).to eq reg_key.user_id
     end
 

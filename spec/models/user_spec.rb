@@ -97,5 +97,13 @@ RSpec.describe User, type: :model do
         expect(user.subscriber?).to be true
       end
     end
+
+    describe 'Default User subscriber status is false' do
+      let(:user) { create :user, email: 'justsignedup@whatever.com' }
+
+      it '#Subscriber? responds false if newly created user has a default subscriber status of false' do
+        expect(user.subscriber?).to be false
+      end
+    end
   end
 end

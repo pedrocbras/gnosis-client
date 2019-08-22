@@ -16,9 +16,10 @@ class Api::V0::SubscriptionsController < ApplicationController
 
     if charge.paid?
       current_user.update_attribute(:subscriber, true)
-      # Some kind of success message here
+      render json: { message: 'Payment was successful!' }
     else
-      # Some kind of error message here
+      render json: { message: 'Whoops! There was an error with payment.' },
+             status: :not_acceptable
     end
   end
 end

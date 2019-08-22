@@ -91,9 +91,7 @@ RSpec.describe User, type: :model do
     end
 
     describe 'User can be a subscriber' do
-      let(:user) do
-        create :user, email: 'hardknocksuniversity@ouch.edu', subscriber: true
-      end
+      let(:user) { create :user, email: 'hardknocksuniversity@ouch.edu', subscriber: true }
 
       it '#subscriber? responds true if user is subscribed' do
         expect(user.subscriber?).to be true

@@ -68,8 +68,6 @@ class RegistrationsController < ::DeviseTokenAuth::RegistrationsController
 
   end
   
-  
-  
   def render_create_success
     if @resource.role === 'university'  
       5.times { RegistrationKey.create(user: @resource) }
@@ -81,6 +79,7 @@ class RegistrationsController < ::DeviseTokenAuth::RegistrationsController
       registration_keys: @resource.registration_keys,
       data: resource_data
     }
+    binding.pry
   end
 
   def render_json_error_response(message)
@@ -90,4 +89,5 @@ class RegistrationsController < ::DeviseTokenAuth::RegistrationsController
       errors: message
     }, status: 422
   end
+
 end

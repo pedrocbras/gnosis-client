@@ -1,17 +1,22 @@
-RSpec.describe Api::V0::SubscriptionsController, type: :request do
-  describe 'POST /api/v0/subscriptions (Happy Path)' do
-    let(:university) { create(:user, role: :university) }
-    let(:credentials) { university.create_new_auth_token }
-    let(:headers) { { HTTP_ACCEPT: 'application/json' }.merge!(credentials) }
-    before do
-      StripeMock.start
-      post '/api/v0/subscriptions',
-           headers: headers,
-           params: { stripeToken: StripeMock.generate_card_token }
-    end
-    after { StripeMock.stop }
+require 'stripe_mock'
 
-  descirbe 'Payment posts successfully (Happy Path)' do
+RSpec.describe Api::V0::SubscriptionsController, type: :request do
+  let(:stripe_helper) { StripeMock.create_test_helper }
+
+  before(:each) { StripeMock.start }
+  after(:each) { StripeMock.stop }
+  let(:university) { create(:user, role: :university) }
+  let(:credentials) { university.create_new_auth_token }
+  let(:headers) { { HTTP_ACCEPT: 'application/json' }.merge!(credentials) }
+
+  describe 'Payment posts successfully (Happy Path)' do
+    
+    before do
+      post '/api/v0/subscriptions',
+          headers: headers,
+          params: { stripeToken: StripeMock.generate_card_token }
+    end
+
     it 'return a 200 status' do
       expect(response.status).to eq 200
     end
@@ -21,33 +26,45 @@ RSpec.describe Api::V0::SubscriptionsController, type: :request do
     end
   end
 
-  describe 'Payment does not post successfully (Sad Path)' do
-    it 'requires a charge amount' do
-      expect {
-        charge =
-          Stripe::Charge.create(
-            currency: 'sek', customer: university, stripeToken: :stripeToken
-          )
-      }.to eq 'Something went wrong. . .';
-      binding.pry
+  describe 'payment is declined' do
+    describe 'when payment request has no stripe token' do
+      before do
+        post '/api/v0/subscriptions',
+          params: { stripeToken: nil },
+          headers: headers
+      end
+
+      it 'returns 402' do
+        expect(response.status).to eq 402
+      end
+  
+      it 'returns error message message' do      
+        expect(response_json['message']).to eq 'Something went wrong. . .'
+      end
+  
+      it 'returns stripe error message' do
+        expect(response_json['errors']).to eq 'No stripe token detected'
+      end
     end
 
-    it 'charge requires a customer' do
-      expect {
-        charge =
-          Stripe::Charge.create(
-            currency: 'sek', amount: 10_000, stripeToken: :stripeToken
-          )
-      }.to raise_error(Stripe::InvalidRequestError)
-    end
-
-    it 'requires a valid credit card' do
-      expect {
-        charge =
-          Stripe::Charge.create(
-            currency: 'sek', stripeToken: 'whatever dude', amount: 10_000
-          )
-      }.to raise_error(Stripe::InvalidRequestError)
+    describe 'when payment request has invalid stripe token' do
+      before do
+        post '/api/v0/subscriptions',
+          params: { stripeToken: 'invalid_token' },
+          headers: headers
+      end
+  
+      it 'returns 402' do
+        expect(response.status).to eq 402
+      end
+  
+      it 'returns error message message' do      
+        expect(response_json['message']).to eq 'Something went wrong. . .'
+      end
+  
+      it 'returns stripe error message' do
+        expect(response_json['errors']).to eq 'Invalid token id: id'
+      end
     end
   end
 end

@@ -26,6 +26,9 @@ RSpec.describe 'Registration', type: :request do
       expect(response_json["data"]["university_id"]).to eq reg_key.user_id
     end
 
+    it 'it does not create registration key for research group user' do
+      expect(response_json["registration_keys"].count).to eq 0
+    end
   end
 
   describe 'of User with Research Group role without Registration Key' do

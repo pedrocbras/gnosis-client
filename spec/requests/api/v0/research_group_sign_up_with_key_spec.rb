@@ -1,5 +1,5 @@
 RSpec.describe 'Registration', type: :request do
-  let(:header) { { HTTP_ACCEPT: 'application/json' } }
+  let(:headers) { { HTTP_ACCEPT: 'application/json' } }
   let(:university) { create(:user, role: 'university') }
   let(:reg_key) { university.registration_keys.create }
 
@@ -22,12 +22,8 @@ RSpec.describe 'Registration', type: :request do
       expect(response_json["data"]["name"]).to eq 'Research Group Alpha'
     end
 
-    it 'verifies that created University has a Registration key' do
+    it 'verifes that Research group are associated with the University thats created the reg-key' do
       expect(response_json["data"]["university_id"]).to eq reg_key.user_id
-    end
-    
-    it 'verifes that Research group are associated with the University thats created' do
-      expect(User.find_by(email: 'example@craftacademy.se').university_id).to eq university.id
     end
 
   end
@@ -43,12 +39,12 @@ RSpec.describe 'Registration', type: :request do
                                      headers: headers
     end
 
-    it 'returns a 422 response, save successfully attempted but nothing saved' do
+    it 'returns a 422 response' do
       expect(response.status).to eq 422
     end
 
     it 'returns error message' do
-      expect(response_json["errors"]).to eq 'Need a registration key'
+      expect(response_json["errors"]).to eq 'Registration key is required for Sign up'
     end
 
     it 'checks for research group saved in db, but fails' do
@@ -68,7 +64,7 @@ RSpec.describe 'Registration', type: :request do
                                      headers: headers
     end
 
-    it 'returns a 422 response, save successfully attempted but nothing saved' do
+    it 'returns a 422 response' do
       expect(response.status).to eq 422
     end
 

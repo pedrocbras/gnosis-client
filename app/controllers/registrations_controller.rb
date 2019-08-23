@@ -5,7 +5,7 @@ class RegistrationsController < ::DeviseTokenAuth::RegistrationsController
     build_resource
     if params[:role] == 'research_group'
       if params[:registration_key].nil?
-        render_json_error_response('Need a registration key') and return
+        render_json_error_response('Registration key is required for Sign up') and return
       end
 
       reg_key = RegistrationKey.find_by(combination: params[:registration_key])

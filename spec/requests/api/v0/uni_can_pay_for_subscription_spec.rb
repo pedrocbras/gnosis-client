@@ -37,11 +37,7 @@ RSpec.describe Api::V0::SubscriptionsController, type: :request do
       it 'returns 402' do
         expect(response.status).to eq 402
       end
-  
-      it 'returns error message message' do      
-        expect(response_json['message']).to eq 'Something went wrong. . .'
-      end
-  
+
       it 'returns stripe error message' do
         expect(response_json['errors']).to eq 'No stripe token detected'
       end
@@ -56,10 +52,6 @@ RSpec.describe Api::V0::SubscriptionsController, type: :request do
   
       it 'returns 402' do
         expect(response.status).to eq 402
-      end
-  
-      it 'returns error message message' do      
-        expect(response_json['message']).to eq 'Something went wrong. . .'
       end
   
       it 'returns stripe error message' do

@@ -1,11 +1,11 @@
-RSpec.describe 'User Registration', type: :request do
+RSpec.describe 'University Registration', type: :request do
   let(:header) { { HTTP_ACCEPT: 'application/json' } }
 
-  describe 'with valid credentials' do
-    before 'posting data to URL' do
+  describe 'with valid credentials for University role' do
+    before 'post new University info' do
       post '/api/v0/auth', params: { email: 'example@craftacademy.se',
                                      name: 'Fat Bob',
-                                     role: 'research_group',
+                                     role: 'university',
                                      password: 'password',
                                      password_confirmation: 'password' },
                                      headers: headers
@@ -16,15 +16,11 @@ RSpec.describe 'User Registration', type: :request do
     end
 
     it 'returns 5 registration keys' do
-      expect(response_json['data']['registration_keys'].count).to eq 5
+      expect(response_json['registration_keys'].count).to eq 5
     end
 
     it 'JSON body response contains a role' do
-      expect(response_json['data']['role']).to eq 'research_group'
-    end
-
-    it 'JSON body response contains a name ' do
-      expect(response_json['data']['name']).to eq 'Fat Bob'
+      expect(response_json['data']['role']).to eq 'university'
     end
   end
 

@@ -1,5 +1,5 @@
 RSpec.describe Api::V0::SubscriptionsController, type: :request do
-  describe 'POST /api/v0/subscriptions' do
+  describe 'POST /api/v0/subscriptions (Happy Path)' do
     let(:university) { create(:user, role: :university) }
     let(:credentials) { university.create_new_auth_token }
     let(:headers) { { HTTP_ACCEPT: 'application/json' }.merge!(credentials) }
@@ -11,6 +11,7 @@ RSpec.describe Api::V0::SubscriptionsController, type: :request do
     end
     after { StripeMock.stop }
 
+  descirbe 'Payment posts successfully (Happy Path)' do
     it 'return a 200 status' do
       expect(response.status).to eq 200
     end
@@ -18,7 +19,9 @@ RSpec.describe Api::V0::SubscriptionsController, type: :request do
     it 'returns a success message' do
       expect(response_json['message']).to eq 'Payment successful'
     end
+  end
 
+  describe 'Payment does not post successfully (Sad Path)' do
     it 'requires a charge amount' do
       expect {
         charge =

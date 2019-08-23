@@ -1,7 +1,6 @@
 RSpec.describe 'Registration', type: :request do
   let(:header) { { HTTP_ACCEPT: 'application/json' } }
-  let(:registration_key) { 'o7A8pJcuvzhv7fih9Paak3nt' }
-  let(:university) { FactoryBot.create(:user, role: 'university') }
+  let(:university) { create(:user, role: 'university') }
   let(:reg_key) { university.registration_keys.create }
 
   describe 'of User with Research Group role with valid Registration Key' do

@@ -3,7 +3,7 @@ class RegistrationsController < ::DeviseTokenAuth::RegistrationsController
   def create
 
     build_resource
-    if params[:role] === 'research_group'
+    if params[:role] == 'research_group'
       if params[:registration_key].nil?
         render_json_error_response('Need a registration key') and return
       end
@@ -69,7 +69,7 @@ class RegistrationsController < ::DeviseTokenAuth::RegistrationsController
   end
   
   def render_create_success
-    if @resource.role === 'university'  
+    if @resource.role == 'university'  
       5.times { RegistrationKey.create(user: @resource) }
       @resource.reload
     end

@@ -24,22 +24,6 @@ RSpec.describe 'University Registration', type: :request do
     end
   end
 
-  describe 'with valid credentials for Research Group role' do
-    before 'post new Research Group info' do
-      post '/api/v0/auth', params: { email: 'example@craftacademy.se',
-                                    name: 'Fat Bob',
-                                    role: 'research_group',
-                                    password: 'password',
-                                    password_confirmation: 'password' },
-                                    headers: headers
-    end
-
-    it 'returns zero registration keys' do
-      expect(response_json['registration_keys']).to eq nil
-    end
-
-  end
-
   describe 'returns an error message when user submits' do
     before 'posting erroneous data to URL' do
       post '/api/v0/auth', params: { email: 'example@craftacademy',

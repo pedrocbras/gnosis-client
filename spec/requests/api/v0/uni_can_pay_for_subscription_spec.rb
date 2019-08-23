@@ -28,7 +28,8 @@ RSpec.describe Api::V0::SubscriptionsController, type: :request do
           Stripe::Charge.create(
             currency: 'sek', customer: university, stripeToken: :stripeToken
           )
-      }.to raise_error(Stripe::InvalidRequestError)
+      }.to eq 'Something went wrong. . .';
+      binding.pry
     end
 
     it 'charge requires a customer' do

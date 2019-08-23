@@ -4,8 +4,12 @@ class User < ActiveRecord::Base
 
   enum role: { university: 0, research_group: 1, reader: 2 }
 
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable,
+         :registerable,
+         :recoverable,
+         :rememberable,
+         :trackable,
+         :validatable
   include DeviseTokenAuth::Concerns::User
   has_many :registration_keys
   has_many :articles

@@ -27,7 +27,7 @@ RSpec.describe 'Registration', type: :request do
     end
 
     it 'it does not create registration key for research group user' do
-      expect(response_json["registration_keys"].count).to eq 0
+      expect(response_json["data"]["registration_keys"].count).to eq 0
     end
     
   end

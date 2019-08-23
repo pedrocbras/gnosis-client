@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_141427) do
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.integer "role"
+    t.boolean "subscriber", default: false
     t.bigint "university_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true

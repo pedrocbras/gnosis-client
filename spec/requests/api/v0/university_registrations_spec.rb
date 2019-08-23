@@ -16,7 +16,7 @@ RSpec.describe 'University Registration', type: :request do
     end
 
     it 'returns 5 registration keys' do
-      expect(response_json['registration_keys'].count).to eq 5
+      expect(response_json['data']['registration_keys'].count).to eq 5
     end
 
     it 'JSON body response contains a role' do

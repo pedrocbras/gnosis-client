@@ -14,6 +14,10 @@ class User < ActiveRecord::Base
   has_many :registration_keys
   has_many :articles
 
+  has_many :research_groups, class_name: "User", foreign_key: "university_id"
+
+  belongs_to :university, class_name: "User", optional: true
+
   private
 
   def set_default_role

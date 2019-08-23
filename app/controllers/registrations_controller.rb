@@ -79,7 +79,6 @@ class RegistrationsController < ::DeviseTokenAuth::RegistrationsController
       registration_keys: @resource.registration_keys,
       data: resource_data
     }
-    binding.pry
   end
 
   def render_json_error_response(message)

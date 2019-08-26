@@ -6,6 +6,7 @@ import {
   injectStripe
 } from "react-stripe-elements";
 import axios from "axios";
+import { connect } from "react-redux";
 import { Form, Button, Card, Container } from "semantic-ui-react";
 
 class CheckoutForm extends Component {
@@ -41,7 +42,7 @@ class CheckoutForm extends Component {
       if (token) {
         this.stripePayment(token.id);
       } else {
-        this.setState({ error: "Something went wrong, please try again." });
+        this.props.dispatchFlash("Something went wrong, please try again.");
       }
     });
   };
@@ -52,13 +53,11 @@ class CheckoutForm extends Component {
         body: stripeToken.id
       });
       if (response.status === 200) {
-        this.setState({
-          success: response.data.message,
-          renderStripeForm: false
-        });
-      }
+        this.props.dispatchFlash(response.data.message, "success"),
+        this.setState({renderStripeForm: false})
+        };
     } catch (error) {
-      this.setState({ error: error.response.data.error });
+      this.props.dispatchFlash(error.response.data.error, "error");
     }
   };
 
@@ -128,5 +127,14 @@ class CheckoutForm extends Component {
     );
   }
 }
+
+const mapDispatchToProps = {
+  dispatchFlash: (message, status) => ({
+    type: "SHOW_FLASH_MESSAGE",
+    payload: { flashMessage: message, status: status }
+  }),
+};
+
+export default connect(mapDispatchToProps)(LoginForm);
 
 export default injectStripe(CheckoutForm);

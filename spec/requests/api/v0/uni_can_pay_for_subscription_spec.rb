@@ -15,6 +15,7 @@ RSpec.describe Api::V0::SubscriptionsController, type: :request do
       post '/api/v0/subscriptions',
           headers: headers,
           params: { stripeToken: StripeMock.generate_card_token }
+          binding.pry
     end
 
     it 'return a 200 status' do

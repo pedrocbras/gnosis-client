@@ -1,5 +1,7 @@
 class Api::V0::SubscriptionsController < ApplicationController
   def create
+    Stripe.api_key = 'sk_test_fGluELHNFcfBVKQvTIBU3h3e00AA6eduz6'
+
     if params[:stripeToken]
       begin
         customer =

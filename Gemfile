@@ -14,7 +14,7 @@ gem 'devise_token_auth'
 gem 'stripe-rails', '~> 1.8', '>= 1.8.1'
 gem 'stripe-ruby-mock', '~> 2.5', require: 'stripe_mock'
 gem 'prettier'
-
+gem 'stripe', '~> 5.0', '>= 5.0.1'
 
 
 group :development, :test do
